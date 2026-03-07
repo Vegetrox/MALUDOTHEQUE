@@ -409,6 +409,44 @@ function isValidEmail(email) {
 }
 
 // ─────────────────────────────────────────────────
+// MENU HAMBURGER MOBILE
+// ─────────────────────────────────────────────────
+
+function initHamburger() {
+  const btn  = document.getElementById('hamburgerBtn');
+  const menu = document.getElementById('mobileMenu');
+  if (!btn || !menu) return;
+
+  btn.addEventListener('click', () => {
+    const isOpen = menu.classList.contains('open');
+    menu.classList.toggle('open');
+    btn.classList.toggle('open');
+    btn.setAttribute('aria-expanded', !isOpen);
+    menu.setAttribute('aria-hidden', isOpen);
+  });
+
+  // Fermer le menu quand on clique sur un lien
+  menu.querySelectorAll('[data-close]').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+    });
+  });
+
+  // Fermer si on clique en dehors
+  document.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !menu.contains(e.target)) {
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+    }
+  });
+}
+
+// ─────────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────────
 
@@ -419,5 +457,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initStarRating();
   initActiveNav();
   initMyLudoLinks();
+  initHamburger();
   loadReviews();    // Tenter de charger les avis Supabase (silencieux si non configuré)
 });
