@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Gîte des Jeux — Ardèche</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════ HEADER / BANDEAU -->
+  <header class="site-header">
+    <div class="header-inner">
+
+      <div class="header-left">
+        <span class="creator-tag">Créé par <strong>VotreNom</strong></span>
+      </div>
+
+      <div class="header-center">
+        <div class="logo-wrap">
+          <span class="logo-icon">♟</span>
+          <h1 class="site-title">Le Gîte des Jeux</h1>
+          <span class="logo-icon">♟</span>
+        </div>
+        <p class="site-subtitle">Ardèche · Jeux · Convivialité</p>
+      </div>
+
+      <nav class="header-nav">
+        <a href="#bienvenue" class="nav-btn">Bienvenue</a>
+        <a href="#lutheque" class="nav-btn">Ludothèque</a>
+        <a href="#livre-or" class="nav-btn">Livre d'or</a>
+        <a href="#contact" class="nav-btn">Contact</a>
+      </nav>
+
+    </div>
+
+    <div class="header-tagline">
+      <p class="tagline-text">✦ Là où chaque soirée devient une légende ✦</p>
+    </div>
+
+    <!-- Météo widget dans le header -->
+    <div class="weather-badge" id="weatherBadge">
+      <div class="weather-loading">
+        <span class="weather-spinner"></span>
+        <span>Météo Ardèche...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════ HERO -->
+  <section class="hero-section">
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Bienvenue en</p>
+      <h2 class="hero-title">Ardèche</h2>
+      <p class="hero-desc">Un cadre naturel exceptionnel, une collection de jeux pour tous les âges,<br>et des soirées inoubliables au cœur des Cévennes.</p>
+      <a href="#bienvenue" class="hero-cta">Découvrir le gîte</a>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>↓</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 1 : BIENVENUE -->
+  <section class="section section-bienvenue" id="bienvenue">
+    <div class="section-label">01</div>
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Bienvenue au Gîte</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="bienvenue-grid">
+        <div class="bienvenue-text">
+          <p class="bienvenue-intro">Niché au cœur de l'Ardèche sauvage, notre gîte vous accueille dans un havre de paix authentique, entouré de forêts de châtaigniers et de gorges calcaires.</p>
+          <p>Que vous soyez famille, couple ou groupe d'amis, vous trouverez ici le parfait équilibre entre nature préservée et confort moderne. Nos espaces sont pensés pour le partage et la détente.</p>
+          <p>Et parce que les plus belles soirées se passent autour d'une table, nous mettons à votre disposition notre <strong>ludothèque</strong> — une collection soigneusement sélectionnée de jeux pour petits et grands.</p>
+          <div class="bienvenue-features">
+            <div class="feature-pill">🌿 Nature & Randonnée</div>
+            <div class="feature-pill">🏠 Hébergement confort</div>
+            <div class="feature-pill">🎲 Ludothèque complète</div>
+            <div class="feature-pill">🔥 Soirées conviviales</div>
+          </div>
+        </div>
+        <div class="bienvenue-card">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <div class="card-icon">🏡</div>
+            <h3>Notre Gîte</h3>
+            <ul class="card-list">
+              <li>✦ Capacité jusqu'à 10 personnes</li>
+              <li>✦ Vue panoramique sur les Cévennes</li>
+              <li>✦ Terrasse & jardin privatifs</li>
+              <li>✦ Cuisine équipée</li>
+              <li>✦ Wi-Fi haut débit</li>
+              <li>✦ +50 jeux disponibles</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 2 : LUDOTHÈQUE -->
+  <section class="section section-lutheque" id="lutheque">
+    <div class="section-label">02</div>
+    <div class="lutheque-bg-pattern"></div>
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Ludothèque</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Explorez notre collection de jeux sur MyLudo — cliquez sur une catégorie pour consulter les jeux disponibles</p>
+      </div>
+
+      <div class="games-grid">
+
+        <!-- Jeux Enfants -->
+        <a href="https://www.myludo.fr" target="_blank" rel="noopener" class="game-category-card" data-category="enfants">
+          <div class="game-card-glow"></div>
+          <div class="game-card-icon">🧸</div>
+          <div class="game-card-body">
+            <h3 class="game-cat-title">Jeux Enfants</h3>
+            <p class="game-cat-desc">Des jeux adaptés aux plus jeunes pour apprendre en s'amusant, dès 3 ans.</p>
+            <div class="game-tags">
+              <span>3–10 ans</span>
+              <span>Éducatif</span>
+              <span>Famille</span>
+            </div>
+          </div>
+          <div class="game-card-cta">
+            <span>Voir sur MyLudo</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+        <!-- Jeux de Stratégie -->
+        <a href="https://www.myludo.fr" target="_blank" rel="noopener" class="game-category-card" data-category="strategie">
+          <div class="game-card-glow"></div>
+          <div class="game-card-icon">♟</div>
+          <div class="game-card-body">
+            <h3 class="game-cat-title">Jeux de Stratégie</h3>
+            <p class="game-cat-desc">Affrontez vos adversaires dans des duels d'intelligence et de tactique.</p>
+            <div class="game-tags">
+              <span>10+ ans</span>
+              <span>Compétitif</span>
+              <span>Réflexion</span>
+            </div>
+          </div>
+          <div class="game-card-cta">
+            <span>Voir sur MyLudo</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+        <!-- Jeux de Plateau -->
+        <a href="https://www.myludo.fr" target="_blank" rel="noopener" class="game-category-card" data-category="plateau">
+          <div class="game-card-glow"></div>
+          <div class="game-card-icon">🎲</div>
+          <div class="game-card-body">
+            <h3 class="game-cat-title">Jeux de Plateau</h3>
+            <p class="game-cat-desc">Les grands classiques et les hits modernes pour des soirées mémorables.</p>
+            <div class="game-tags">
+              <span>Tous âges</span>
+              <span>Convivial</span>
+              <span>Soirée</span>
+            </div>
+          </div>
+          <div class="game-card-cta">
+            <span>Voir sur MyLudo</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+        <!-- Jeux de Figurines -->
+        <a href="https://www.myludo.fr" target="_blank" rel="noopener" class="game-category-card" data-category="figurines">
+          <div class="game-card-glow"></div>
+          <div class="game-card-icon">⚔️</div>
+          <div class="game-card-body">
+            <h3 class="game-cat-title">Jeux de Figurines</h3>
+            <p class="game-cat-desc">Plongez dans des univers épiques avec des batailles de figurines peintes.</p>
+            <div class="game-tags">
+              <span>12+ ans</span>
+              <span>Immersif</span>
+              <span>Aventure</span>
+            </div>
+          </div>
+          <div class="game-card-cta">
+            <span>Voir sur MyLudo</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="lutheque-note">
+        <p>🎯 Notre catalogue est mis à jour régulièrement sur <a href="https://www.myludo.fr" target="_blank">MyLudo.fr</a>. N'hésitez pas à nous contacter pour réserver un jeu avant votre séjour !</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 3 : LIVRE D'OR -->
+  <section class="section section-livredor" id="livre-or">
+    <div class="section-label">03</div>
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Livre d'Or</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Partagez votre expérience et lisez les avis de nos voyageurs</p>
+      </div>
+
+      <!-- Témoignages existants -->
+      <div class="testimonials-wrapper">
+        <div class="testimonials-track" id="testimonialsTrack">
+
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"Un séjour absolument magique ! La ludothèque est incroyable, nous avons joué jusqu'à 2h du matin. Le cadre ardéchois est somptueux."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">M</div>
+              <div>
+                <strong>Marie & Thomas</strong>
+                <span>Paris · Août 2024</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"Nos enfants ont adoré les jeux enfants ! On est repartis avec une liste de jeux à acheter. Le gîte est parfait pour une famille."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">F</div>
+              <div>
+                <strong>Famille Dupont</strong>
+                <span>Lyon · Juillet 2024</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★☆</div>
+            <p class="testimonial-text">"Le jeu de figurines Zombicide était top ! Super collection, cadre magnifique, accueil chaleureux. On reviendra l'année prochaine."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">P</div>
+              <div>
+                <strong>Pierre & ses amis</strong>
+                <span>Bordeaux · Juin 2024</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Formulaire d'ajout -->
+      <div class="gold-book-form">
+        <h3 class="form-title">✦ Laissez votre message ✦</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="goldName">Votre nom</label>
+            <input type="text" id="goldName" placeholder="Marie Dupont" />
+          </div>
+          <div class="form-group">
+            <label for="goldCity">Ville d'origine</label>
+            <input type="text" id="goldCity" placeholder="Paris" />
+          </div>
+          <div class="form-group form-group-full">
+            <label for="goldMsg">Votre message</label>
+            <textarea id="goldMsg" rows="4" placeholder="Partagez votre expérience au gîte..."></textarea>
+          </div>
+          <div class="form-group stars-group">
+            <label>Note</label>
+            <div class="star-rating" id="starRating">
+              <span class="star" data-val="1">★</span>
+              <span class="star" data-val="2">★</span>
+              <span class="star" data-val="3">★</span>
+              <span class="star" data-val="4">★</span>
+              <span class="star" data-val="5">★</span>
+            </div>
+          </div>
+          <div class="form-group form-submit-group">
+            <button class="btn-submit" id="submitReview" onclick="submitReview()">
+              <span>Envoyer mon message</span>
+              <span class="btn-icon">✦</span>
+            </button>
+          </div>
+        </div>
+        <div class="form-feedback" id="formFeedback"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ SECTION 4 : CONTACT -->
+  <section class="section section-contact" id="contact">
+    <div class="section-label">04</div>
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Nous Contacter</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Une question ? Une réservation ? Nous sommes là pour vous !</p>
+      </div>
+
+      <div class="contact-grid">
+
+        <div class="contact-infos">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <strong>Adresse</strong>
+              <p>123 Chemin des Châtaigniers<br>07XXX — Ardèche, France</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <strong>Téléphone</strong>
+              <p>+33 (0)4 XX XX XX XX</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div>
+              <strong>Email</strong>
+              <p>contact@legitedesjeux.fr</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div>
+              <strong>Disponibilités</strong>
+              <p>Toute l'année · Check-in 16h · Check-out 11h</p>
+            </div>
+          </div>
+          <div class="contact-social">
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="Instagram">📷</a>
+            <a href="#" class="social-link" title="AirBnB">🏠</a>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="contactName">Nom complet</label>
+              <input type="text" id="contactName" placeholder="Jean Martin" />
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">Email</label>
+              <input type="email" id="contactEmail" placeholder="jean@email.fr" />
+            </div>
+            <div class="form-group">
+              <label for="contactPhone">Téléphone</label>
+              <input type="tel" id="contactPhone" placeholder="+33 6 XX XX XX XX" />
+            </div>
+            <div class="form-group">
+              <label for="contactDates">Dates souhaitées</label>
+              <input type="text" id="contactDates" placeholder="Du 15 au 22 août 2025" />
+            </div>
+            <div class="form-group form-group-full">
+              <label for="contactMsg">Message</label>
+              <textarea id="contactMsg" rows="4" placeholder="Votre message ou demande de réservation..."></textarea>
+            </div>
+            <div class="form-group form-group-full form-submit-group">
+              <button class="btn-submit" onclick="submitContact()">
+                <span>Envoyer la demande</span>
+                <span class="btn-icon">→</span>
+              </button>
+            </div>
+          </div>
+          <div class="form-feedback" id="contactFeedback"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">♟</span>
+        <span class="footer-name">Le Gîte des Jeux</span>
+        <span class="logo-icon">♟</span>
+      </div>
+      <p class="footer-tagline">Ardèche · Jeux · Convivialité</p>
+      <div class="footer-links">
+        <a href="#bienvenue">Bienvenue</a>
+        <span>·</span>
+        <a href="#lutheque">Ludothèque</a>
+        <span>·</span>
+        <a href="#livre-or">Livre d'or</a>
+        <span>·</span>
+        <a href="#contact">Contact</a>
+      </div>
+      <p class="footer-credits">Site réalisé par <strong>VotreNom</strong> · Hébergé sur Netlify · Base de données Supabase</p>
+      <p class="footer-copy">© 2025 Le Gîte des Jeux — Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
