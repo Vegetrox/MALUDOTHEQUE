@@ -28,13 +28,38 @@
         <p class="site-subtitle">Ardèche · Jeux · Convivialité</p>
       </div>
 
-      <nav class="header-nav">
+      <nav class="header-nav" id="headerNav">
         <a href="#bienvenue" class="nav-btn">Bienvenue</a>
         <a href="#lutheque" class="nav-btn">Ludothèque</a>
         <a href="#livre-or" class="nav-btn">Livre d'or</a>
         <a href="#contact" class="nav-btn">Contact</a>
       </nav>
 
+      <!-- Bouton hamburger — visible uniquement mobile -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu" aria-expanded="false">
+        <span class="ham-dot"></span>
+        <span class="ham-dot"></span>
+        <span class="ham-dot"></span>
+      </button>
+
+    </div>
+
+    <!-- Menu mobile déroulant -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <div class="mobile-menu-inner">
+        <a href="#bienvenue" class="mobile-nav-link" data-close>
+          <span class="mobile-nav-num">01</span>Bienvenue
+        </a>
+        <a href="#lutheque" class="mobile-nav-link" data-close>
+          <span class="mobile-nav-num">02</span>Ludothèque
+        </a>
+        <a href="#livre-or" class="mobile-nav-link" data-close>
+          <span class="mobile-nav-num">03</span>Livre d'or
+        </a>
+        <a href="#contact" class="mobile-nav-link" data-close>
+          <span class="mobile-nav-num">04</span>Contact
+        </a>
+      </div>
     </div>
 
     <div class="header-tagline">
@@ -323,7 +348,7 @@
             <div class="contact-icon">✉️</div>
             <div>
               <strong>Email</strong>
-              <p>contact@legitedesjeux.fr</p>
+              <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3655595842575542765a53515f42535253455c53434e185044">[email&#160;protected]</a></p>
             </div>
           </div>
           <div class="contact-item">
@@ -395,10 +420,4 @@
         <a href="#contact">Contact</a>
       </div>
       <p class="footer-credits">Site réalisé par <strong>VotreNom</strong> · Hébergé sur Netlify · Base de données Supabase</p>
-      <p class="footer-copy">© 2025 Le Gîte des Jeux — Tous droits réservés</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+      <p class="footer-copy">© 202
