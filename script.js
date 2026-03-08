@@ -1,27 +1,20 @@
 /* ═══════════════════════════════════════════
    LE GÎTE DES JEUX — SCRIPT.JS
-   Météo · Livre d'or · Particules · Animations
    ═══════════════════════════════════════════ */
 
 // ─────────────────────────────────────────────────
 // CONFIG — À personnaliser
 // ─────────────────────────────────────────────────
 const CONFIG = {
-  // Météo : Open-Meteo (gratuit, sans clé API)
-  // Coordonnées : Aubenas, Ardèche (centre géographique)
   weather: {
     lat:  44.619,
     lon:  4.391,
     city: "Ardèche"
   },
-
-  // Supabase — remplacez par vos vraies valeurs
   supabase: {
-    url:    "https://VOTRE_PROJECT_ID.supabase.co",
-    anonKey:"VOTRE_ANON_KEY"
+    url:     "https://VOTRE_PROJECT_ID.supabase.co",
+    anonKey: "VOTRE_ANON_KEY"
   },
-
-  // MyLudo — remplacez par vos URLs de collection réelles
   myLudoLinks: {
     enfants:   "https://www.myludo.fr",
     strategie: "https://www.myludo.fr",
@@ -31,69 +24,149 @@ const CONFIG = {
 };
 
 // ─────────────────────────────────────────────────
-// MÉTÉO — Open-Meteo API (gratuit, sans inscription)
+// MÉTÉO — Open-Meteo (gratuit, sans clé API)
 // ─────────────────────────────────────────────────
 
 const WEATHER_CODES = {
-  0:  { label: "Ciel dégagé",       icon: "☀️" },
-  1:  { label: "Légères nuages",     icon: "🌤️" },
-  2:  { label: "Partiellement nuageux", icon: "⛅" },
-  3:  { label: "Couvert",            icon: "☁️" },
-  45: { label: "Brouillard",         icon: "🌫️" },
-  48: { label: "Brouillard givrant", icon: "🌫️" },
-  51: { label: "Bruine légère",      icon: "🌦️" },
-  53: { label: "Bruine modérée",     icon: "🌧️" },
-  55: { label: "Bruine forte",       icon: "🌧️" },
-  61: { label: "Pluie légère",       icon: "🌧️" },
-  63: { label: "Pluie modérée",      icon: "🌧️" },
-  65: { label: "Pluie forte",        icon: "🌧️" },
-  71: { label: "Neige légère",       icon: "❄️" },
-  73: { label: "Neige modérée",      icon: "❄️" },
-  75: { label: "Neige forte",        icon: "❄️" },
-  80: { label: "Averses légères",    icon: "🌦️" },
-  81: { label: "Averses modérées",   icon: "🌧️" },
-  82: { label: "Averses violentes",  icon: "⛈️" },
-  95: { label: "Orage",              icon: "⛈️" },
-  96: { label: "Orage avec grêle",   icon: "⛈️" },
-  99: { label: "Orage avec grêle",   icon: "⛈️" },
+  0:  { label: "Ciel dégagé",           icon: "☀️" },
+  1:  { label: "Légères nuages",         icon: "🌤️" },
+  2:  { label: "Partiellement nuageux",  icon: "⛅" },
+  3:  { label: "Couvert",               icon: "☁️" },
+  45: { label: "Brouillard",            icon: "🌫️" },
+  48: { label: "Brouillard givrant",    icon: "🌫️" },
+  51: { label: "Bruine légère",         icon: "🌦️" },
+  53: { label: "Bruine modérée",        icon: "🌧️" },
+  55: { label: "Bruine forte",          icon: "🌧️" },
+  61: { label: "Pluie légère",          icon: "🌧️" },
+  63: { label: "Pluie modérée",         icon: "🌧️" },
+  65: { label: "Pluie forte",           icon: "🌧️" },
+  71: { label: "Neige légère",          icon: "❄️" },
+  73: { label: "Neige modérée",         icon: "❄️" },
+  75: { label: "Neige forte",           icon: "❄️" },
+  80: { label: "Averses légères",       icon: "🌦️" },
+  81: { label: "Averses modérées",      icon: "🌧️" },
+  82: { label: "Averses violentes",     icon: "⛈️" },
+  95: { label: "Orage",                 icon: "⛈️" },
+  96: { label: "Orage avec grêle",      icon: "⛈️" },
+  99: { label: "Orage avec grêle",      icon: "⛈️" },
 };
 
 async function fetchWeather() {
   const badge = document.getElementById('weatherBadge');
-  try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${CONFIG.weather.lat}&longitude=${CONFIG.weather.lon}&current_weather=true&hourly=apparent_temperature&timezone=Europe%2FParis`;
-    const res  = await fetch(url);
-    if (!res.ok) throw new Error('API météo indisponible');
-    const data = await res.json();
+  if (!badge) return;
 
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast`
+      + `?latitude=${CONFIG.weather.lat}`
+      + `&longitude=${CONFIG.weather.lon}`
+      + `&current_weather=true`
+      + `&timezone=Europe%2FParis`;
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const data = await res.json();
     const cw   = data.current_weather;
+
+    if (!cw) throw new Error('Données météo absentes');
+
     const temp = Math.round(cw.temperature);
+    const wind = Math.round(cw.windspeed);
     const code = cw.weathercode;
     const meta = WEATHER_CODES[code] || { label: "Variable", icon: "🌡️" };
-    const wind = Math.round(cw.windspeed);
 
     badge.innerHTML = `
       <div class="weather-widget">
-        <span class="weather-icon">${meta.icon}</span>
+        <span class="w-icon">${meta.icon}</span>
         <div>
-          <div class="weather-temp">${temp}°C</div>
-          <div class="weather-desc">${CONFIG.weather.city} · ${meta.label}</div>
+          <div class="w-temp">${temp}°C</div>
+          <div class="w-desc">${CONFIG.weather.city} · ${meta.label}</div>
         </div>
-        <div style="margin-left:0.5rem; border-left:1px solid rgba(201,146,58,0.2); padding-left:0.75rem;">
-          <div class="weather-temp" style="font-size:0.85rem;">💨 ${wind} km/h</div>
-          <div class="weather-desc">Vent</div>
+        <div class="w-sep"></div>
+        <div>
+          <div class="w-wind-val">💨 ${wind} km/h</div>
+          <div class="w-desc">Vent</div>
         </div>
       </div>
     `;
+
+    // Recalculer la hauteur du header après ajout météo
+    updateScrollPadding();
+
   } catch (err) {
+    console.warn('Météo indisponible :', err.message);
     badge.innerHTML = `
       <div class="weather-widget">
-        <span class="weather-icon">🌡️</span>
-        <div><div class="weather-desc">Météo indisponible</div></div>
+        <span class="w-icon">🌡️</span>
+        <div><div class="w-desc">${CONFIG.weather.city} — météo indisponible</div></div>
       </div>
     `;
-    console.warn('Météo:', err.message);
+    updateScrollPadding();
   }
+}
+
+// ─────────────────────────────────────────────────
+// SCROLL PADDING — compense la hauteur du header sticky
+// ─────────────────────────────────────────────────
+
+function updateScrollPadding() {
+  const header = document.getElementById('siteHeader');
+  if (!header) return;
+  const h = header.getBoundingClientRect().height;
+  document.documentElement.style.setProperty('--header-height', h + 'px');
+}
+
+// ─────────────────────────────────────────────────
+// MENU HAMBURGER MOBILE
+// ─────────────────────────────────────────────────
+
+function initHamburger() {
+  const btn  = document.getElementById('hamburgerBtn');
+  const menu = document.getElementById('mobileMenu');
+  if (!btn || !menu) return;
+
+  function openMenu() {
+    menu.classList.add('open');
+    btn.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+    menu.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeMenu() {
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    menu.setAttribute('aria-hidden', 'true');
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  // Fermer au clic sur un lien
+  menu.querySelectorAll('[data-close-menu]').forEach(link => {
+    link.addEventListener('click', () => {
+      closeMenu();
+      // Laisser le temps à l'animation de fermeture avant le scroll
+      // (le scroll-padding-top CSS s'occupe du décalage)
+    });
+  });
+
+  // Fermer en cliquant ailleurs
+  document.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !menu.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  // Fermer si on passe en desktop (resize)
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      closeMenu();
+    }
+    updateScrollPadding();
+  });
 }
 
 // ─────────────────────────────────────────────────
@@ -107,35 +180,35 @@ function createParticles() {
   const symbols = ['✦', '♟', '⚄', '★', '◆', '✧'];
 
   for (let i = 0; i < 35; i++) {
-    const p  = document.createElement('div');
+    const el = document.createElement('div');
     const isSymbol = Math.random() > 0.6;
 
     if (isSymbol) {
-      p.style.cssText = `
+      el.style.cssText = `
         position: absolute;
         left: ${Math.random() * 100}%;
         top: ${Math.random() * 100}%;
-        color: rgba(201,146,58,${0.05 + Math.random() * 0.15});
-        font-size: ${0.8 + Math.random() * 1.5}rem;
+        color: rgba(201,146,58,${0.05 + Math.random() * 0.12});
+        font-size: ${0.8 + Math.random() * 1.4}rem;
         pointer-events: none;
-        animation: floatParticle ${6 + Math.random() * 8}s ease-in-out ${Math.random() * 5}s infinite;
         user-select: none;
+        animation: floatParticle ${6 + Math.random() * 8}s ease-in-out ${Math.random() * 5}s infinite;
       `;
-      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
     } else {
-      p.classList.add('particle');
-      p.style.cssText = `
+      el.classList.add('particle');
+      el.style.cssText = `
         left: ${Math.random() * 100}%;
         top: ${90 + Math.random() * 10}%;
         --dur: ${5 + Math.random() * 8}s;
         --delay: ${Math.random() * 6}s;
         width: ${1 + Math.random() * 3}px;
         height: ${1 + Math.random() * 3}px;
+        background: rgba(201,146,58,0.8);
         box-shadow: 0 0 4px rgba(201,146,58,0.8);
       `;
     }
-
-    container.appendChild(p);
+    container.appendChild(el);
   }
 }
 
@@ -149,19 +222,18 @@ function initReveal() {
     '.game-category-card, .testimonial-card, .gold-book-form, ' +
     '.contact-infos, .contact-form-wrap, .contact-item, .feature-pill'
   );
-
   targets.forEach(el => el.classList.add('reveal'));
 
-  const observer = new IntersectionObserver((entries) => {
+  const obs = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
         setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
+        obs.unobserve(entry.target);
       }
     });
   }, { threshold: 0.12 });
 
-  targets.forEach(el => observer.observe(el));
+  targets.forEach(el => obs.observe(el));
 }
 
 // ─────────────────────────────────────────────────
@@ -171,27 +243,56 @@ function initReveal() {
 let selectedRating = 5;
 
 function initStarRating() {
-  const stars = document.querySelectorAll('#starRating .star');
+  const container = document.getElementById('starRating');
+  if (!container) return;
+  const stars = container.querySelectorAll('.star');
+
   stars.forEach(star => {
     star.addEventListener('click', () => {
       selectedRating = parseInt(star.dataset.val);
-      updateStars(stars, selectedRating);
+      stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.val) <= selectedRating));
     });
   });
-  updateStars(stars, selectedRating); // default 5
+  // Étoiles actives par défaut (5)
+  stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.val) <= selectedRating));
 }
 
-function updateStars(stars, val) {
-  stars.forEach(s => {
-    s.classList.toggle('active', parseInt(s.dataset.val) <= val);
+// ─────────────────────────────────────────────────
+// NAVIGATION ACTIVE
+// ─────────────────────────────────────────────────
+
+function initActiveNav() {
+  const sections = document.querySelectorAll('.section[id]');
+  const navBtns  = document.querySelectorAll('.nav-btn');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navBtns.forEach(btn => btn.classList.remove('active'));
+        const active = document.querySelector(`.nav-btn[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => obs.observe(s));
+}
+
+// ─────────────────────────────────────────────────
+// MYLUDO LINKS
+// ─────────────────────────────────────────────────
+
+function initMyLudoLinks() {
+  document.querySelectorAll('.game-category-card[data-category]').forEach(card => {
+    const cat = card.dataset.category;
+    if (CONFIG.myLudoLinks[cat]) card.href = CONFIG.myLudoLinks[cat];
   });
 }
 
 // ─────────────────────────────────────────────────
-// SUPABASE — Livre d'or
+// SUPABASE HELPERS
 // ─────────────────────────────────────────────────
 
-// ──── Helpers Supabase REST ────────────────────
 async function supabaseFetch(table, method = 'GET', body = null, filters = '') {
   const url = `${CONFIG.supabase.url}/rest/v1/${table}${filters}`;
   const opts = {
@@ -212,22 +313,20 @@ async function supabaseFetch(table, method = 'GET', body = null, filters = '') {
   return method === 'GET' ? res.json() : res;
 }
 
-// ──── Charger les avis existants depuis Supabase ────
 async function loadReviews() {
   try {
     const reviews = await supabaseFetch('reviews', 'GET', null, '?order=created_at.desc&limit=20');
     if (!reviews || reviews.length === 0) return;
-
     const track = document.getElementById('testimonialsTrack');
-    // Effacer les témoignages statiques avant d'ajouter les vrais
+    if (!track) return;
     track.innerHTML = '';
-
     reviews.forEach(r => {
-      const stars = '★'.repeat(r.rating || 5) + '☆'.repeat(5 - (r.rating || 5));
+      const filled = '★'.repeat(Math.min(r.rating || 5, 5));
+      const empty  = '☆'.repeat(Math.max(5 - (r.rating || 5), 0));
       const card = document.createElement('div');
       card.className = 'testimonial-card';
       card.innerHTML = `
-        <div class="testimonial-stars">${stars}</div>
+        <div class="testimonial-stars">${filled}${empty}</div>
         <p class="testimonial-text">"${escapeHtml(r.message)}"</p>
         <div class="testimonial-author">
           <div class="author-avatar">${r.name ? r.name[0].toUpperCase() : '?'}</div>
@@ -240,58 +339,43 @@ async function loadReviews() {
       track.appendChild(card);
     });
   } catch (err) {
-    console.warn('Impossible de charger les avis Supabase:', err.message);
-    // Les témoignages statiques restent affichés si Supabase n'est pas configuré
+    console.warn('Avis Supabase non chargés :', err.message);
   }
 }
 
-// ──── Soumettre un avis dans Supabase ────
 async function submitReview() {
-  const name    = document.getElementById('goldName').value.trim();
-  const city    = document.getElementById('goldCity').value.trim();
-  const message = document.getElementById('goldMsg').value.trim();
+  const name     = document.getElementById('goldName').value.trim();
+  const city     = document.getElementById('goldCity').value.trim();
+  const message  = document.getElementById('goldMsg').value.trim();
   const feedback = document.getElementById('formFeedback');
+  const btn      = document.getElementById('submitReview');
 
   if (!name || !message) {
     showFeedback(feedback, '⚠️ Merci de renseigner votre nom et votre message.', 'error');
     return;
   }
   if (message.length < 10) {
-    showFeedback(feedback, '⚠️ Votre message est trop court.', 'error');
+    showFeedback(feedback, '⚠️ Votre message est trop court (10 caractères minimum).', 'error');
     return;
   }
 
-  const btn = document.getElementById('submitReview');
   btn.disabled = true;
   btn.querySelector('span').textContent = 'Envoi en cours...';
 
   try {
-    await supabaseFetch('reviews', 'POST', {
-      name,
-      city,
-      message,
-      rating: selectedRating
-    });
-
-    showFeedback(feedback, '✦ Merci pour votre message ! Il sera affiché après modération.', 'success');
-
-    // Reset form
-    document.getElementById('goldName').value  = '';
-    document.getElementById('goldCity').value  = '';
-    document.getElementById('goldMsg').value   = '';
+    await supabaseFetch('reviews', 'POST', { name, city, message, rating: selectedRating });
+    showFeedback(feedback, '✦ Merci ! Votre message sera affiché après modération.', 'success');
+    document.getElementById('goldName').value = '';
+    document.getElementById('goldCity').value = '';
+    document.getElementById('goldMsg').value  = '';
     selectedRating = 5;
     initStarRating();
-
-    // Rafraîchir les avis
     await loadReviews();
-
   } catch (err) {
-    console.error('Erreur Supabase:', err);
-    // Afficher quand même un message de succès côté UX si Supabase n'est pas encore configuré
     if (CONFIG.supabase.url.includes('VOTRE_PROJECT_ID')) {
-      showFeedback(feedback, '⚙️ Supabase non configuré. Intégrez vos clés dans script.js pour activer l\'envoi.', 'error');
+      showFeedback(feedback, '⚙️ Supabase non configuré — ajoutez vos clés dans script.js.', 'error');
     } else {
-      showFeedback(feedback, '❌ Une erreur est survenue. Veuillez réessayer.', 'error');
+      showFeedback(feedback, '❌ Erreur d\'envoi. Réessayez plus tard.', 'error');
     }
   }
 
@@ -299,81 +383,34 @@ async function submitReview() {
   btn.querySelector('span').textContent = 'Envoyer mon message';
 }
 
-// ─────────────────────────────────────────────────
-// CONTACT FORM
-// ─────────────────────────────────────────────────
-
 async function submitContact() {
-  const name    = document.getElementById('contactName').value.trim();
-  const email   = document.getElementById('contactEmail').value.trim();
-  const phone   = document.getElementById('contactPhone').value.trim();
-  const dates   = document.getElementById('contactDates').value.trim();
-  const message = document.getElementById('contactMsg').value.trim();
+  const name     = document.getElementById('contactName').value.trim();
+  const email    = document.getElementById('contactEmail').value.trim();
+  const phone    = document.getElementById('contactPhone').value.trim();
+  const dates    = document.getElementById('contactDates').value.trim();
+  const message  = document.getElementById('contactMsg').value.trim();
   const feedback = document.getElementById('contactFeedback');
 
   if (!name || !email || !message) {
-    showFeedback(feedback, '⚠️ Merci de renseigner au minimum votre nom, email et message.', 'error');
+    showFeedback(feedback, '⚠️ Merci de renseigner nom, email et message.', 'error');
     return;
   }
   if (!isValidEmail(email)) {
     showFeedback(feedback, '⚠️ Adresse email invalide.', 'error');
     return;
   }
-
   try {
     await supabaseFetch('contacts', 'POST', { name, email, phone, dates, message });
-    showFeedback(feedback, '✦ Votre demande a été envoyée ! Nous vous répondrons dans les plus brefs délais.', 'success');
-    ['contactName', 'contactEmail', 'contactPhone', 'contactDates', 'contactMsg']
-      .forEach(id => document.getElementById(id).value = '');
+    showFeedback(feedback, '✦ Demande envoyée ! Nous vous répondrons très vite.', 'success');
+    ['contactName','contactEmail','contactPhone','contactDates','contactMsg']
+      .forEach(id => { document.getElementById(id).value = ''; });
   } catch (err) {
     if (CONFIG.supabase.url.includes('VOTRE_PROJECT_ID')) {
-      showFeedback(feedback, '⚙️ Supabase non configuré. Intégrez vos clés dans script.js.', 'error');
+      showFeedback(feedback, '⚙️ Supabase non configuré — ajoutez vos clés dans script.js.', 'error');
     } else {
-      showFeedback(feedback, '❌ Erreur d\'envoi. Contactez-nous directement par email.', 'error');
+      showFeedback(feedback, '❌ Erreur. Contactez-nous directement par email.', 'error');
     }
   }
-}
-
-// ─────────────────────────────────────────────────
-// NAVIGATION ACTIVE (highlight au scroll)
-// ─────────────────────────────────────────────────
-
-function initActiveNav() {
-  const sections = document.querySelectorAll('.section[id]');
-  const navBtns  = document.querySelectorAll('.nav-btn[href^="#"]');
-
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navBtns.forEach(btn => {
-          btn.style.color = '';
-          btn.style.borderColor = '';
-          btn.style.background = '';
-        });
-        const active = document.querySelector(`.nav-btn[href="#${entry.target.id}"]`);
-        if (active) {
-          active.style.color = 'var(--gold-light)';
-          active.style.borderColor = 'var(--border-strong)';
-          active.style.background = 'rgba(201,146,58,0.1)';
-        }
-      }
-    });
-  }, { threshold: 0.4 });
-
-  sections.forEach(s => obs.observe(s));
-}
-
-// ─────────────────────────────────────────────────
-// MYLUDO LINKS — mise à jour des cartes
-// ─────────────────────────────────────────────────
-
-function initMyLudoLinks() {
-  document.querySelectorAll('.game-category-card[data-category]').forEach(card => {
-    const cat = card.dataset.category;
-    if (CONFIG.myLudoLinks[cat]) {
-      card.href = CONFIG.myLudoLinks[cat];
-    }
-  });
 }
 
 // ─────────────────────────────────────────────────
@@ -381,27 +418,22 @@ function initMyLudoLinks() {
 // ─────────────────────────────────────────────────
 
 function showFeedback(el, msg, type) {
-  el.textContent  = msg;
-  el.className    = `form-feedback ${type}`;
+  if (!el) return;
+  el.textContent = msg;
+  el.className = `form-feedback ${type}`;
   setTimeout(() => {
-    if (el.textContent === msg) {
-      el.textContent = '';
-      el.className   = 'form-feedback';
-    }
+    if (el.textContent === msg) { el.textContent = ''; el.className = 'form-feedback'; }
   }, 6000);
 }
 
 function escapeHtml(str) {
   if (!str) return '';
-  return str.replace(/[&<>"']/g, c => ({
-    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
-  }[c]));
+  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 }
 
 function formatDate(iso) {
   if (!iso) return '';
-  const d = new Date(iso);
-  return d.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+  return new Date(iso).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
 }
 
 function isValidEmail(email) {
@@ -409,54 +441,17 @@ function isValidEmail(email) {
 }
 
 // ─────────────────────────────────────────────────
-// MENU HAMBURGER MOBILE
-// ─────────────────────────────────────────────────
-
-function initHamburger() {
-  const btn  = document.getElementById('hamburgerBtn');
-  const menu = document.getElementById('mobileMenu');
-  if (!btn || !menu) return;
-
-  btn.addEventListener('click', () => {
-    const isOpen = menu.classList.contains('open');
-    menu.classList.toggle('open');
-    btn.classList.toggle('open');
-    btn.setAttribute('aria-expanded', !isOpen);
-    menu.setAttribute('aria-hidden', isOpen);
-  });
-
-  // Fermer le menu quand on clique sur un lien
-  menu.querySelectorAll('[data-close]').forEach(link => {
-    link.addEventListener('click', () => {
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-      menu.setAttribute('aria-hidden', 'true');
-    });
-  });
-
-  // Fermer si on clique en dehors
-  document.addEventListener('click', (e) => {
-    if (!btn.contains(e.target) && !menu.contains(e.target)) {
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-      menu.setAttribute('aria-hidden', 'true');
-    }
-  });
-}
-
-// ─────────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
-  fetchWeather();
+  updateScrollPadding();  // 1. Calculer hauteur header dès le départ
+  fetchWeather();         // 2. Charger météo (recalcule ensuite)
   createParticles();
   initReveal();
   initStarRating();
   initActiveNav();
   initMyLudoLinks();
-  initHamburger();
-  loadReviews();    // Tenter de charger les avis Supabase (silencieux si non configuré)
+  initHamburger();        // 3. Menu mobile
+  loadReviews();
 });
