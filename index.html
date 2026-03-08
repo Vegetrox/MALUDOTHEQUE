@@ -11,14 +11,14 @@
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════ HEADER / BANDEAU -->
-  <header class="site-header">
-    <div class="header-inner">
+  <!-- ═══════════════════════════════════════════════ HEADER -->
+  <header class="site-header" id="siteHeader">
 
+    <!-- Ligne principale -->
+    <div class="header-inner">
       <div class="header-left">
         <span class="creator-tag">Créé par <strong>VotreNom</strong></span>
       </div>
-
       <div class="header-center">
         <div class="logo-wrap">
           <span class="logo-icon">♟</span>
@@ -27,52 +27,54 @@
         </div>
         <p class="site-subtitle">Ardèche · Jeux · Convivialité</p>
       </div>
-
-      <nav class="header-nav" id="headerNav">
+      <!-- Navigation desktop -->
+      <nav class="header-nav">
         <a href="#bienvenue" class="nav-btn">Bienvenue</a>
         <a href="#lutheque" class="nav-btn">Ludothèque</a>
         <a href="#livre-or" class="nav-btn">Livre d'or</a>
         <a href="#contact" class="nav-btn">Contact</a>
       </nav>
-
-      <!-- Bouton hamburger — visible uniquement mobile -->
-      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu" aria-expanded="false">
+      <!-- Bouton 3 points — mobile uniquement -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Ouvrir le menu" aria-expanded="false">
         <span class="ham-dot"></span>
         <span class="ham-dot"></span>
         <span class="ham-dot"></span>
       </button>
-
     </div>
 
-    <!-- Menu mobile déroulant -->
-    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-      <div class="mobile-menu-inner">
-        <a href="#bienvenue" class="mobile-nav-link" data-close>
-          <span class="mobile-nav-num">01</span>Bienvenue
-        </a>
-        <a href="#lutheque" class="mobile-nav-link" data-close>
-          <span class="mobile-nav-num">02</span>Ludothèque
-        </a>
-        <a href="#livre-or" class="mobile-nav-link" data-close>
-          <span class="mobile-nav-num">03</span>Livre d'or
-        </a>
-        <a href="#contact" class="mobile-nav-link" data-close>
-          <span class="mobile-nav-num">04</span>Contact
-        </a>
-      </div>
-    </div>
-
+    <!-- Phrase d'accroche -->
     <div class="header-tagline">
       <p class="tagline-text">✦ Là où chaque soirée devient une légende ✦</p>
     </div>
 
-    <!-- Météo widget dans le header -->
-    <div class="weather-badge" id="weatherBadge">
-      <div class="weather-loading">
-        <span class="weather-spinner"></span>
-        <span>Météo Ardèche...</span>
+    <!-- Barre météo intégrée dans le flux -->
+    <div class="weather-bar">
+      <div id="weatherBadge">
+        <div class="weather-loading-wrap">
+          <span class="weather-spinner"></span>
+          <span>Météo Ardèche...</span>
+        </div>
       </div>
     </div>
+
+    <!-- Menu mobile déroulant — TOUJOURS EN DERNIER dans le header -->
+    <nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <div class="mobile-menu-inner">
+        <a href="#bienvenue" class="mobile-nav-link" data-close-menu>
+          <span class="mobile-nav-num">01</span>Bienvenue
+        </a>
+        <a href="#lutheque" class="mobile-nav-link" data-close-menu>
+          <span class="mobile-nav-num">02</span>Ludothèque
+        </a>
+        <a href="#livre-or" class="mobile-nav-link" data-close-menu>
+          <span class="mobile-nav-num">03</span>Livre d'or
+        </a>
+        <a href="#contact" class="mobile-nav-link" data-close-menu>
+          <span class="mobile-nav-num">04</span>Contact
+        </a>
+      </div>
+    </nav>
+
   </header>
 
   <!-- ═══════════════════════════════════════════════ HERO -->
@@ -84,12 +86,10 @@
       <p class="hero-desc">Un cadre naturel exceptionnel, une collection de jeux pour tous les âges,<br>et des soirées inoubliables au cœur des Cévennes.</p>
       <a href="#bienvenue" class="hero-cta">Découvrir le gîte</a>
     </div>
-    <div class="hero-scroll-hint">
-      <span>↓</span>
-    </div>
+    <div class="hero-scroll-hint"><span>↓</span></div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════ SECTION 1 : BIENVENUE -->
+  <!-- ═══════════════════════════════════════════════ 01 — BIENVENUE -->
   <section class="section section-bienvenue" id="bienvenue">
     <div class="section-label">01</div>
     <div class="container">
@@ -128,7 +128,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════ SECTION 2 : LUDOTHÈQUE -->
+  <!-- ═══════════════════════════════════════════════ 02 — LUDOTHÈQUE -->
   <section class="section section-lutheque" id="lutheque">
     <div class="section-label">02</div>
     <div class="lutheque-bg-pattern"></div>
@@ -136,96 +136,62 @@
       <div class="section-header">
         <h2 class="section-title">Ludothèque</h2>
         <div class="section-divider"></div>
-        <p class="section-subtitle">Explorez notre collection de jeux sur MyLudo — cliquez sur une catégorie pour consulter les jeux disponibles</p>
+        <p class="section-subtitle">Explorez notre collection sur MyLudo — cliquez sur une catégorie pour consulter les jeux disponibles</p>
       </div>
-
       <div class="games-grid">
 
-        <!-- Jeux Enfants -->
         <a href="https://www.myludo.fr" target="_blank" rel="noopener" class="game-category-card" data-category="enfants">
           <div class="game-card-glow"></div>
           <div class="game-card-icon">🧸</div>
           <div class="game-card-body">
             <h3 class="game-cat-title">Jeux Enfants</h3>
             <p class="game-cat-desc">Des jeux adaptés aux plus jeunes pour apprendre en s'amusant, dès 3 ans.</p>
-            <div class="game-tags">
-              <span>3–10 ans</span>
-              <span>Éducatif</span>
-              <span>Famille</span>
-            </div>
+            <div class="game-tags"><span>3–10 ans</span><span>Éducatif</span><span>Famille</span></div>
           </div>
-          <div class="game-card-cta">
-            <span>Voir sur MyLudo</span>
-            <span class="arrow">→</span>
-          </div>
+          <div class="game-card-cta"><span>Voir sur MyLudo</span><span class="arrow">→</span></div>
         </a>
 
-        <!-- Jeux de Stratégie -->
         <a href="https://www.myludo.fr" target="_blank" rel="noopener" class="game-category-card" data-category="strategie">
           <div class="game-card-glow"></div>
           <div class="game-card-icon">♟</div>
           <div class="game-card-body">
             <h3 class="game-cat-title">Jeux de Stratégie</h3>
             <p class="game-cat-desc">Affrontez vos adversaires dans des duels d'intelligence et de tactique.</p>
-            <div class="game-tags">
-              <span>10+ ans</span>
-              <span>Compétitif</span>
-              <span>Réflexion</span>
-            </div>
+            <div class="game-tags"><span>10+ ans</span><span>Compétitif</span><span>Réflexion</span></div>
           </div>
-          <div class="game-card-cta">
-            <span>Voir sur MyLudo</span>
-            <span class="arrow">→</span>
-          </div>
+          <div class="game-card-cta"><span>Voir sur MyLudo</span><span class="arrow">→</span></div>
         </a>
 
-        <!-- Jeux de Plateau -->
         <a href="https://www.myludo.fr" target="_blank" rel="noopener" class="game-category-card" data-category="plateau">
           <div class="game-card-glow"></div>
           <div class="game-card-icon">🎲</div>
           <div class="game-card-body">
             <h3 class="game-cat-title">Jeux de Plateau</h3>
             <p class="game-cat-desc">Les grands classiques et les hits modernes pour des soirées mémorables.</p>
-            <div class="game-tags">
-              <span>Tous âges</span>
-              <span>Convivial</span>
-              <span>Soirée</span>
-            </div>
+            <div class="game-tags"><span>Tous âges</span><span>Convivial</span><span>Soirée</span></div>
           </div>
-          <div class="game-card-cta">
-            <span>Voir sur MyLudo</span>
-            <span class="arrow">→</span>
-          </div>
+          <div class="game-card-cta"><span>Voir sur MyLudo</span><span class="arrow">→</span></div>
         </a>
 
-        <!-- Jeux de Figurines -->
         <a href="https://www.myludo.fr" target="_blank" rel="noopener" class="game-category-card" data-category="figurines">
           <div class="game-card-glow"></div>
           <div class="game-card-icon">⚔️</div>
           <div class="game-card-body">
             <h3 class="game-cat-title">Jeux de Figurines</h3>
             <p class="game-cat-desc">Plongez dans des univers épiques avec des batailles de figurines peintes.</p>
-            <div class="game-tags">
-              <span>12+ ans</span>
-              <span>Immersif</span>
-              <span>Aventure</span>
-            </div>
+            <div class="game-tags"><span>12+ ans</span><span>Immersif</span><span>Aventure</span></div>
           </div>
-          <div class="game-card-cta">
-            <span>Voir sur MyLudo</span>
-            <span class="arrow">→</span>
-          </div>
+          <div class="game-card-cta"><span>Voir sur MyLudo</span><span class="arrow">→</span></div>
         </a>
 
       </div>
-
       <div class="lutheque-note">
         <p>🎯 Notre catalogue est mis à jour régulièrement sur <a href="https://www.myludo.fr" target="_blank">MyLudo.fr</a>. N'hésitez pas à nous contacter pour réserver un jeu avant votre séjour !</p>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════ SECTION 3 : LIVRE D'OR -->
+  <!-- ═══════════════════════════════════════════════ 03 — LIVRE D'OR -->
   <section class="section section-livredor" id="livre-or">
     <div class="section-label">03</div>
     <div class="container">
@@ -234,51 +200,34 @@
         <div class="section-divider"></div>
         <p class="section-subtitle">Partagez votre expérience et lisez les avis de nos voyageurs</p>
       </div>
-
-      <!-- Témoignages existants -->
       <div class="testimonials-wrapper">
         <div class="testimonials-track" id="testimonialsTrack">
-
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
             <p class="testimonial-text">"Un séjour absolument magique ! La ludothèque est incroyable, nous avons joué jusqu'à 2h du matin. Le cadre ardéchois est somptueux."</p>
             <div class="testimonial-author">
               <div class="author-avatar">M</div>
-              <div>
-                <strong>Marie & Thomas</strong>
-                <span>Paris · Août 2024</span>
-              </div>
+              <div><strong>Marie & Thomas</strong><span>Paris · Août 2024</span></div>
             </div>
           </div>
-
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★★</div>
             <p class="testimonial-text">"Nos enfants ont adoré les jeux enfants ! On est repartis avec une liste de jeux à acheter. Le gîte est parfait pour une famille."</p>
             <div class="testimonial-author">
               <div class="author-avatar">F</div>
-              <div>
-                <strong>Famille Dupont</strong>
-                <span>Lyon · Juillet 2024</span>
-              </div>
+              <div><strong>Famille Dupont</strong><span>Lyon · Juillet 2024</span></div>
             </div>
           </div>
-
           <div class="testimonial-card">
             <div class="testimonial-stars">★★★★☆</div>
             <p class="testimonial-text">"Le jeu de figurines Zombicide était top ! Super collection, cadre magnifique, accueil chaleureux. On reviendra l'année prochaine."</p>
             <div class="testimonial-author">
               <div class="author-avatar">P</div>
-              <div>
-                <strong>Pierre & ses amis</strong>
-                <span>Bordeaux · Juin 2024</span>
-              </div>
+              <div><strong>Pierre & ses amis</strong><span>Bordeaux · Juin 2024</span></div>
             </div>
           </div>
-
         </div>
       </div>
-
-      <!-- Formulaire d'ajout -->
       <div class="gold-book-form">
         <h3 class="form-title">✦ Laissez votre message ✦</h3>
         <div class="form-grid">
@@ -313,11 +262,10 @@
         </div>
         <div class="form-feedback" id="formFeedback"></div>
       </div>
-
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════ SECTION 4 : CONTACT -->
+  <!-- ═══════════════════════════════════════════════ 04 — CONTACT -->
   <section class="section section-contact" id="contact">
     <div class="section-label">04</div>
     <div class="container">
@@ -326,37 +274,23 @@
         <div class="section-divider"></div>
         <p class="section-subtitle">Une question ? Une réservation ? Nous sommes là pour vous !</p>
       </div>
-
       <div class="contact-grid">
-
         <div class="contact-infos">
           <div class="contact-item">
             <div class="contact-icon">📍</div>
-            <div>
-              <strong>Adresse</strong>
-              <p>123 Chemin des Châtaigniers<br>07XXX — Ardèche, France</p>
-            </div>
+            <div><strong>Adresse</strong><p>123 Chemin des Châtaigniers<br>07XXX — Ardèche, France</p></div>
           </div>
           <div class="contact-item">
             <div class="contact-icon">📞</div>
-            <div>
-              <strong>Téléphone</strong>
-              <p>+33 (0)4 XX XX XX XX</p>
-            </div>
+            <div><strong>Téléphone</strong><p>+33 (0)4 XX XX XX XX</p></div>
           </div>
           <div class="contact-item">
             <div class="contact-icon">✉️</div>
-            <div>
-              <strong>Email</strong>
-              <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3655595842575542765a53515f42535253455c53434e185044">[email&#160;protected]</a></p>
-            </div>
+            <div><strong>Email</strong><p>contact@legitedesjeux.fr</p></div>
           </div>
           <div class="contact-item">
             <div class="contact-icon">🕐</div>
-            <div>
-              <strong>Disponibilités</strong>
-              <p>Toute l'année · Check-in 16h · Check-out 11h</p>
-            </div>
+            <div><strong>Disponibilités</strong><p>Toute l'année · Check-in 16h · Check-out 11h</p></div>
           </div>
           <div class="contact-social">
             <a href="#" class="social-link" title="Facebook">📘</a>
@@ -364,7 +298,6 @@
             <a href="#" class="social-link" title="AirBnB">🏠</a>
           </div>
         </div>
-
         <div class="contact-form-wrap">
           <div class="form-grid">
             <div class="form-group">
@@ -389,14 +322,12 @@
             </div>
             <div class="form-group form-group-full form-submit-group">
               <button class="btn-submit" onclick="submitContact()">
-                <span>Envoyer la demande</span>
-                <span class="btn-icon">→</span>
+                <span>Envoyer la demande</span><span class="btn-icon">→</span>
               </button>
             </div>
           </div>
           <div class="form-feedback" id="contactFeedback"></div>
         </div>
-
       </div>
     </div>
   </section>
@@ -411,13 +342,16 @@
       </div>
       <p class="footer-tagline">Ardèche · Jeux · Convivialité</p>
       <div class="footer-links">
-        <a href="#bienvenue">Bienvenue</a>
-        <span>·</span>
-        <a href="#lutheque">Ludothèque</a>
-        <span>·</span>
-        <a href="#livre-or">Livre d'or</a>
-        <span>·</span>
+        <a href="#bienvenue">Bienvenue</a><span>·</span>
+        <a href="#lutheque">Ludothèque</a><span>·</span>
+        <a href="#livre-or">Livre d'or</a><span>·</span>
         <a href="#contact">Contact</a>
       </div>
       <p class="footer-credits">Site réalisé par <strong>VotreNom</strong> · Hébergé sur Netlify · Base de données Supabase</p>
-      <p class="footer-copy">© 202
+      <p class="footer-copy">© 2025 Le Gîte des Jeux — Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
